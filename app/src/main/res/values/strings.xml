@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Movieapp</string>
+
+    <!-- TODO: have an overlay of editText on images and have the data from json -->
+
+    <!-- TODO: fix the issue of crashing application if the network is not connected -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
