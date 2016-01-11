@@ -16,6 +16,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".DetailsActivity"
+            android:label="Movie"
+            android:parentActivityName=".MainActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.good.movieapp.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

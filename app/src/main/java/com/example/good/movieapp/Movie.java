@@ -1,99 +1,85 @@
 package com.example.good.movieapp;
 
-import java.io.Serializable;
+/*
+*
+* simple object to store all the information
+* for a movie being used in the UI
+*
+* Takes a string for the movie title, poster, overview, voteAverage
+* and releaseDate
+*
+* Implements parcelable in order to easily pass between intents
+*
+* */
 
-/**
- * Created by pc on 1/7/2016.
- */
-public class Movie implements Serializable {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    private String backdrop_path;
-    private int id;
-    private String original_title;
-    private String overview;
-    private String release_date;
-    private String poster_path;
-    private double popularity;
+public class Movie implements Parcelable {
     private String title;
-    private  int vote_average;
-    private int vote_count;
+    private String poster;
+    private String overview;
+    private String voteAverage;
+    private String releaseDate;
 
-    public int getVote_count() {
-        return vote_count;
-    }
-    public void setVote_count(int vote_count) {
-        this.vote_count = vote_count;
-    }
-
-    public int getVote_average() {
-        return vote_average;
-    }
-    public void setVote_average(int vote_average) {
-        this.vote_average = vote_average;
-    }
-
-    public String getBackdrop_path() {
-        return backdrop_path;
-    }
-
-    public void setBackdrop_path(String backdrop_path) {
-        this.backdrop_path = backdrop_path;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getOriginal_title() {
-        return original_title;
-    }
-
-    public void setOriginal_title(String original_title) {
-        this.original_title = original_title;
-    }
-
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
+    public Movie(String title, String poster, String overview,
+                 String voteAverage, String releaseDate){
+        this.title = title;
+        this.poster = poster;
         this.overview = overview;
-    }
-
-    public String getRelease_date() {
-        return release_date;
-    }
-
-    public void setRelease_date(String release_date) {
-        this.release_date = release_date;
-    }
-
-    public String getPoster_path() {
-        return poster_path;
-    }
-
-    public void setPoster_path(String poster_path) {
-        this.poster_path = poster_path;
-    }
-
-    public double getPopularity() {
-        return popularity;
-    }
-
-    public void setPopularity(double popularity) {
-        this.popularity = popularity;
+        this.voteAverage = voteAverage;
+        this.releaseDate = releaseDate;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getPoster() {
+        return poster;
     }
 
+    public String getOverview() {
+        return overview;
+    }
+
+    public String getVoteAverage() {
+        return voteAverage;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(title);
+        out.writeString(poster);
+        out.writeString(overview);
+        out.writeString(voteAverage);
+        out.writeString(releaseDate);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    private Movie(Parcel in) {
+        title = in.readString();
+        poster = in.readString();
+        overview = in.readString();
+        voteAverage = in.readString();
+        releaseDate = in.readString();
+    }
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 }
