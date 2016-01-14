@@ -1,7 +1,9 @@
 package com.example.good.movieapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,8 +20,12 @@ import java.util.List;
 public class MovieFragment extends Fragment {
     final String LOG_TAG = FetchMovie.class.getSimpleName();
     private ImageAdapter mMoviePosterAdapter;
+    private SharedPreferences prefs;
+    String sortOrder;
     List<Movie> movies = new ArrayList<Movie>();
+
     public MovieFragment() {
+        setHasOptionsMenu(true);
         // Required empty public constructor
     }
 
@@ -28,9 +34,34 @@ public class MovieFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sortOrder = prefs.getString("sortType", "popularity.desc");
 
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStart() {
+        // get sort order to see if it has recently changed
+        super.onStart();
+        String prefSortOrder = prefs.getString("sortType", "popularity.desc");
+        if(movies.size() > 0 &&prefSortOrder.equals(sortOrder)){
+            updatePosterAdapter();
+        }else{
+            sortOrder = prefSortOrder;
+            getMovies();
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,15 +93,6 @@ public class MovieFragment extends Fragment {
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
 
     private void getMovies() {
         FetchMovie fetchMoviesTask = new FetchMovie(new AsyncResponse() {
@@ -82,7 +104,7 @@ public class MovieFragment extends Fragment {
 
             }
         });
-        fetchMoviesTask.execute();
+        fetchMoviesTask.execute(sortOrder);
     }
 
     // updates the ArrayAdapter of poster images

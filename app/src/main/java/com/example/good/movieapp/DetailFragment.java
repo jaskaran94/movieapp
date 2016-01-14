@@ -15,7 +15,9 @@ import com.squareup.picasso.Picasso;
 public class DetailFragment extends Fragment {
 
     Movie movie;
+
     public DetailFragment() {
+        setHasOptionsMenu(true);
     }
 
     @Nullable

@@ -24,7 +24,7 @@ import java.util.Locale;
 /**
  * Created by pc on 1/11/2016.
  */
-public class FetchMovie extends AsyncTask<Void, Void, List<Movie>> {
+public class FetchMovie extends AsyncTask<String, Void, List<Movie>> {
     public AsyncResponse delegate;
     private final String LOG_TAG = FetchMovie.class.getSimpleName();
     private final String MOVIE_POSTER_BASE = "http://image.tmdb.org/t/p/";
@@ -36,25 +36,30 @@ public class FetchMovie extends AsyncTask<Void, Void, List<Movie>> {
 
     @Override
 
-    protected List<Movie> doInBackground(Void... params) {
+    protected List<Movie> doInBackground(String... params) {
 
+        if(params.length == 0){
+            return null;
+        }
         String movieJsonStr = null;
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 
-        String sort_by = "popularity.desc";
-        int page = 1;
+        //String sort_by = "popularity.desc";
+        //int page = 1;
 
         try{
 
             final String BASE_URL = "https://api.themoviedb.org/3/discover/movie?";
-            final String PAGE_PARAM = "page";
-            final String SORT_BY_PARAM = "popularity.desc";
+            //final String PAGE_PARAM = "page";
+            final String SORT_BY = "sort_by";
+            //final String SORT_BY_PARAM = "popularity.desc";
             final String APP_ID = "api_key";
+            String sortBy = params[0];
 
             Uri builtUri = Uri.parse(BASE_URL).buildUpon()
-                    .appendQueryParameter(PAGE_PARAM, Integer.toString(page))
-                    .appendQueryParameter(SORT_BY_PARAM, sort_by)
+                    //.appendQueryParameter(PAGE_PARAM, Integer.toString(page))
+                    .appendQueryParameter(SORT_BY, sortBy)
                     .appendQueryParameter(APP_ID, BuildConfig.MOVIE_API_KEY)
                     .build();
 
