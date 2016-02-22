@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.good.movieapp.model.Movie;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -142,6 +144,7 @@ public class FetchMovie extends AsyncTask<String, Void, List<Movie>> {
         final String OVERVIEW = "overview";
         final String VOTE_AVERAGE = "vote_average";
         final String RELEASE_DATE = "release_date";
+        final String ID = "id";
 
         JSONObject moviesJson = new JSONObject(moviesJsonStr);
         JSONArray moviesArray = moviesJson.getJSONArray(ARRAY_OF_MOVIES);
@@ -155,11 +158,12 @@ public class FetchMovie extends AsyncTask<String, Void, List<Movie>> {
             JSONObject movie = moviesArray.getJSONObject(i);
             String title = movie.getString(ORIGINAL_TITLE);
             String poster = MOVIE_POSTER_BASE + MOVIE_POSTER_SIZE + movie.getString(POSTER_PATH);
+            String id = movie.getString(ID);
             String overview = movie.getString(OVERVIEW);
             String voteAverage = movie.getString(VOTE_AVERAGE);
             String releaseDate = getYear(movie.getString(RELEASE_DATE));
 
-            movies.add(new Movie(title, poster, overview, voteAverage, releaseDate));
+            movies.add(new Movie(id, title, poster, overview, voteAverage, releaseDate));
 
         }
 

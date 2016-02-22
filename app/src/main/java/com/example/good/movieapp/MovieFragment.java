@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.example.good.movieapp.model.Movie;
+
 import java.util.ArrayList;
 import java.util.List;
 

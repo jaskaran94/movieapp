@@ -1,4 +1,4 @@
-package com.example.good.movieapp;
+package com.example.good.movieapp.model;
 
 /*
 *
@@ -16,19 +16,25 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Movie implements Parcelable {
+    private String id;
     private String title;
     private String poster;
     private String overview;
     private String voteAverage;
     private String releaseDate;
 
-    public Movie(String title, String poster, String overview,
+    public Movie(String id, String title, String poster, String overview,
                  String voteAverage, String releaseDate){
+        this.id=id;
         this.title = title;
         this.poster = poster;
         this.overview = overview;
         this.voteAverage = voteAverage;
         this.releaseDate = releaseDate;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -53,6 +59,7 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel out, int flags) {
+        out.writeString(id);
         out.writeString(title);
         out.writeString(poster);
         out.writeString(overview);
@@ -66,6 +73,7 @@ public class Movie implements Parcelable {
     }
 
     private Movie(Parcel in) {
+        id = in.readString();
         title = in.readString();
         poster = in.readString();
         overview = in.readString();

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.good.movieapp.model.Movie;
 import com.squareup.picasso.Picasso;
 
 public class DetailFragment extends Fragment {
@@ -38,11 +39,14 @@ public class DetailFragment extends Fragment {
         TextView releaseDate = (TextView) v.findViewById(R.id.release_date);
         TextView ratings = (TextView) v.findViewById(R.id.ratings_view);
         TextView overview = (TextView) v.findViewById(R.id.synopsis_view);
+        TextView movieId = (TextView) v.findViewById(R.id.movieId);
+
 
         title.setText(movie.getTitle());
         Picasso.with(getActivity()).load(movie.getPoster()).into(poster);
         releaseDate.setText(movie.getReleaseDate());
         ratings.setText(movie.getVoteAverage());
         overview.setText(movie.getOverview());
+        movieId.setText(movie.getId());
     }
 }

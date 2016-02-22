@@ -1,5 +1,7 @@
 package com.example.good.movieapp;
 
+import com.example.good.movieapp.model.Movie;
+
 import java.util.List;
 
 /*
