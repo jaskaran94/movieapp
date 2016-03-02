@@ -1,4 +1,4 @@
-package com.example.good.movieapp.data;
+package com.example.good.movieapp.data_v2;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,6 +27,8 @@ public class MovieDbHelper extends SQLiteOpenHelper {
                 MovieContract.MovieEntry.COLUMN_MOVIE_TITLE + " TEXT NOT NULL," +
                 MovieContract.MovieEntry.COLUMN_MOVIE_RELEASE_DATE + " TEXT NOT NULL," +
                 MovieContract.MovieEntry.COLUMN_MOVIE_VOTE_AVERAGE + " REAL NOT NULL," +
+                MovieContract.MovieEntry.COLUMN_MOVIE_REVIEWS + " TEXT NOT NULL" +
+                MovieContract.MovieEntry.COLUMN_MOVIE_TRAILERS + " TEXT NOT NULL" +
                 MovieContract.MovieEntry.COLUMN_MOVIE_VOTE_COUNT + " INTEGER NOT NULL" + ");";
 
         final String SQL_CREATE_TRAILERS_TABLE = "CREATE TABLE " + MovieContract.TrailerEntry.TABLE_NAME + " ( "

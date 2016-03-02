@@ -1,4 +1,4 @@
-package com.example.good.movieapp.data;
+package com.example.good.movieapp.data_v2;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -38,7 +38,9 @@ public class MovieContract {
         public static final String COLUMN_MOVIE_OVERVIEW = "overview";
         public static final String COLUMN_MOVIE_VOTE_AVERAGE = "vote_average";
         public static final String COLUMN_MOVIE_RELEASE_DATE = "release_date";
-        public static final String COLUMN_FAVORITE = "favorite";
+        public static final String COLUMN_MOVIE_REVIEWS = "reviews";
+        public static final String COLUMN_MOVIE_TRAILERS = "trailers";
+        //public static final String COLUMN_FAVORITE = "favorite";
 
         public static String getPosterUrlFromUri(Uri uri){
             return uri.getPathSegments().get(1);

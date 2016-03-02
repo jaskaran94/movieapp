@@ -14,17 +14,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.example.good.movieapp.adapters.ImageAdapter;
+import com.example.good.movieapp.api.FetchMovie;
 import com.example.good.movieapp.model.Movie;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MovieFragment extends Fragment {
     final String LOG_TAG = FetchMovie.class.getSimpleName();
     private ImageAdapter mMoviePosterAdapter;
     private SharedPreferences prefs;
-    String sortOrder;
-    List<Movie> movies = new ArrayList<Movie>();
+    private String sortOrder;
+    private ArrayList<Movie> movies = new ArrayList<Movie>();
 
     public MovieFragment() {
         setHasOptionsMenu(true);
@@ -97,16 +98,11 @@ public class MovieFragment extends Fragment {
 
 
     private void getMovies() {
-        FetchMovie fetchMoviesTask = new FetchMovie(new AsyncResponse() {
-            @Override
-            public void onTaskCompleted(List<Movie> results) {
-                movies.clear();
-                movies.addAll(results);
-                updatePosterAdapter();
-
-            }
-        });
-        fetchMoviesTask.execute(sortOrder);
+        FetchMovie fetchMovie = new FetchMovie(getActivity(),
+                movies,
+                mMoviePosterAdapter,
+                sortOrder);
+        fetchMovie.execute();
     }
 
     // updates the ArrayAdapter of poster images

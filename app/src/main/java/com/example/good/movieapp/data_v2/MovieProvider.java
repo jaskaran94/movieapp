@@ -1,4 +1,4 @@
-package com.example.good.movieapp.data;
+package com.example.good.movieapp.data_v2;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;

@@ -16,14 +16,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Movie implements Parcelable {
-    private String id;
+    private int id;
     private String title;
     private String poster;
     private String overview;
     private String voteAverage;
     private String releaseDate;
+    private String movieReviews;
+    private String movieTrailers="";
 
-    public Movie(String id, String title, String poster, String overview,
+    public Movie(int id, String title, String poster, String overview,
                  String voteAverage, String releaseDate){
         this.id=id;
         this.title = title;
@@ -33,7 +35,7 @@ public class Movie implements Parcelable {
         this.releaseDate = releaseDate;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -57,14 +59,32 @@ public class Movie implements Parcelable {
         return releaseDate;
     }
 
+    public String getReviews(){
+        return movieReviews;
+    }
+
+    public void setReviews(String reviews){
+        movieReviews = reviews;
+    }
+
+    public String getMovieTrailers(){
+        return movieTrailers;
+    }
+
+    public void setMovieTrailers(String trailers){
+        movieTrailers = trailers;
+    }
+
     @Override
     public void writeToParcel(Parcel out, int flags) {
-        out.writeString(id);
+        out.writeInt(id);
         out.writeString(title);
         out.writeString(poster);
         out.writeString(overview);
         out.writeString(voteAverage);
         out.writeString(releaseDate);
+        out.writeString(movieReviews);
+        out.writeString(movieTrailers);
     }
 
     @Override
@@ -73,12 +93,14 @@ public class Movie implements Parcelable {
     }
 
     private Movie(Parcel in) {
-        id = in.readString();
+        id = in.readInt();
         title = in.readString();
         poster = in.readString();
         overview = in.readString();
         voteAverage = in.readString();
         releaseDate = in.readString();
+        movieReviews = in.readString();
+        movieTrailers = in.readString();
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
